@@ -3,4 +3,27 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Gray -->
+    <color name="gy_two">#EEEEEE</color>
+    <color name="gy_four">#BDBDBD</color>
+    <color name="gy_six">#757575</color>
+    <color name="gy_eight">#424242</color>
+
+
+    <!-- Brown -->
+    <color name="b_one">#D7CCC8</color>
+    <color name="b_three">#A1887F</color>
+    <color name="b_five">#795548</color>
+    <color name="b_seven">#5D4037</color>
+    <color name="b_eight">#4E342E</color>
+
+
+
+
+
+
 </resources>
