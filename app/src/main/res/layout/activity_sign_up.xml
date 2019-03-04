@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/gy_two">
 
+    <ImageView
+        android:id="@+id/image_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher"/>
+
     <EditText
         android:id="@+id/fullname_signup"
         android:hint="@string/fullname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         android:inputType="text"
         />
