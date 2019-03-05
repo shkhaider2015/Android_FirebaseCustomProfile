@@ -8,7 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AndroidException;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -77,6 +80,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 showImageChooser();
                 break;
             case R.id.button_signup:
+                saveUserInformation();
                 break;
             case R.id.prob1_signup:
                 startActivity(new Intent(this, MainActivity.class));
@@ -142,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                         {
                                             Log.d(TAG, "Download Uri onFailure: " + e.getMessage());
                                             Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                            
+
                                         }
                                     });
 
@@ -159,6 +163,92 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     });
 
         }
+
+    }
+
+    private void saveUserInformation()
+    {
+        final String sFullName, sEmail, sPhoneNo, sPassword;
+
+        sFullName = mFullName.getText().toString().trim();
+        sEmail = mEmail.getText().toString().trim();
+        sPhoneNo = mPhoneNo.getText().toString().trim();
+        sPassword = mPassword.getText().toString().trim();
+
+        if(sFullName.isEmpty())
+        {
+            mFullName.setError("Full Name is required");
+            mFullName.requestFocus();
+            return;
+        }
+        if(sEmail.isEmpty())
+        {
+            mEmail.setError("Email is required");
+            mEmail.requestFocus();
+            return;
+        }
+        if(sPhoneNo.isEmpty())
+        {
+            mPhoneNo.setError("Phone No. is required");
+            mPhoneNo.requestFocus();
+            return;
+        }
+        if(sPassword.isEmpty())
+        {
+            mPassword.setError("Password. is required");
+            mPassword.requestFocus();
+            return;
+        }
+
+        if(sFullName.length() > 20)
+        {
+            mFullName.setError("Full Name must be less than 20");
+            mFullName.requestFocus();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(sEmail).matches())
+        {
+            mEmail.setError("Email is not correct");
+            mEmail.requestFocus();
+            return;
+        }
+
+        if(sPhoneNo.length() < 10)
+        {
+            mPhoneNo.setError("Phone No is not correct");
+            mPhoneNo.requestFocus();
+            return;
+        }
+        if(sPassword.length() < 6 )
+        {
+            mPassword.setError("Password should more than 6");
+            mPassword.requestFocus();
+            return;
+        }
+
+
+
+        mAuth.createUserWithEmailAndPassword(sEmail, sPassword )
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if(task.isSuccessful())
+                        {
+                            User user = new User(
+                              sFullName,
+                              sEmail,
+                              sPhoneNo
+                            );
+
+                           
+                        }
+
+                    }
+                });
+
+
+
 
     }
 }
