@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -241,7 +242,32 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                               sPhoneNo
                             );
 
-                           
+                            FirebaseDatabase.getInstance().getReference("users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if(task.isSuccessful())
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Signup Successfully", Toast.LENGTH_SHORT).show();
+
+                                                startActivity(new Intent(SignUpActivity.this, UserProfileActivity.class));
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(), "Signup is not Successfully", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    });
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), task.getException().getLocalizedMessage() , Toast.LENGTH_SHORT).show();
                         }
 
                     }

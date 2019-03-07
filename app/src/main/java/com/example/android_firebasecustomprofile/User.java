@@ -4,7 +4,7 @@ public class User {
 
 
 
-    private String mFullName, mEmail, mPhoneNo;
+    public String mFullName, mEmail, mPhoneNo;
 
     public User()
     {
