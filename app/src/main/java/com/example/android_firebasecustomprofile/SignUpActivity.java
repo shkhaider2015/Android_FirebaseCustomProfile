@@ -110,7 +110,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mURIOfProfilePic);
                 mProfilePic.setImageBitmap(bitmap);
-                uploadImageToFirebase();
+
 
 
             }catch (IOException e)
@@ -242,23 +242,26 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                               sPhoneNo
                             );
 
-                            FirebaseDatabase.getInstance().getReference("users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            uploadImageToFirebase();
+
+                            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            if(userID == null)
+                            {
+                                Log.d(TAG, "onComplete: UsrerID null");
+                            }
+
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(userID)
                                     .setValue(user)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task)
                                         {
-                                            if(task.isSuccessful())
-                                            {
                                                 Toast.makeText(getApplicationContext(), "Signup Successfully", Toast.LENGTH_SHORT).show();
 
                                                 startActivity(new Intent(SignUpActivity.this, UserProfileActivity.class));
-                                            }
-                                            else
-                                            {
-                                                Toast.makeText(getApplicationContext(), "Signup is not Successfully", Toast.LENGTH_SHORT).show();
-                                            }
+
 
                                         }
                                     });
