@@ -178,51 +178,51 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         if(sFullName.isEmpty())
         {
-            mFullName.setError("Full Name is required");
+            mFullName.setError(getString(R.string.full_name_empty_error));
             mFullName.requestFocus();
             return;
         }
         if(sEmail.isEmpty())
         {
-            mEmail.setError("Email is required");
+            mEmail.setError(getString(R.string.email_empty_error));
             mEmail.requestFocus();
             return;
         }
         if(sPhoneNo.isEmpty())
         {
-            mPhoneNo.setError("Phone No. is required");
+            mPhoneNo.setError(getString(R.string.phone_no_empty_error));
             mPhoneNo.requestFocus();
             return;
         }
         if(sPassword.isEmpty())
         {
-            mPassword.setError("Password. is required");
+            mPassword.setError(getString(R.string.password_empty_error));
             mPassword.requestFocus();
             return;
         }
 
         if(sFullName.length() > 20)
         {
-            mFullName.setError("Full Name must be less than 20");
+            mFullName.setError(getString(R.string.full_name_length_error));
             mFullName.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(sEmail).matches())
         {
-            mEmail.setError("Email is not correct");
+            mEmail.setError(getString(R.string.email_pattern_error));
             mEmail.requestFocus();
             return;
         }
 
-        if(sPhoneNo.length() < 10)
+        if(sPhoneNo.length() != 11)
         {
-            mPhoneNo.setError("Phone No is not correct");
+            mPhoneNo.setError(getString(R.string.phone_no_length_error));
             mPhoneNo.requestFocus();
             return;
         }
         if(sPassword.length() < 6 )
         {
-            mPassword.setError("Password should more than 6");
+            mPassword.setError(getString(R.string.password_length_error));
             mPassword.requestFocus();
             return;
         }
@@ -254,15 +254,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(userID)
                                     .setValue(user)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task)
+                                        public void onSuccess(Void aVoid)
                                         {
-                                                Toast.makeText(getApplicationContext(), "Signup Successfully", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Signup Successfully", Toast.LENGTH_SHORT).show();
 
-                                                startActivity(new Intent(SignUpActivity.this, UserProfileActivity.class));
+                                            startActivity(new Intent(SignUpActivity.this, UserProfileActivity.class));
 
-
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e)
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Signup Failed : Failure", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 

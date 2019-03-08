@@ -14,5 +14,19 @@
     <string name="profile_pic">upload profile picture</string>
     <string name="update">Update</string>
 
+    <!-- SignUpActivity.java -->
+
+    <string name="full_name_empty_error">full name is required</string>
+    <string name="full_name_length_error">full name length should be maximum 20 alphabet</string>
+    <string name="email_empty_error">email is required</string>
+    <string name="email_pattern_error">Not a correct email</string>
+    <string name="password_empty_error">password is required</string>
+    <string name="password_length_error">password length is too short</string>
+    <string name="phone_no_empty_error">phone no. is required</string>
+    <string name="phone_no_length_error">Not a correct phone no.</string>
+    >
+
+
+
 
 </resources>

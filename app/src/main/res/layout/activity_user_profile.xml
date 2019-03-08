@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/profile_pic_profile"
         android:src="@mipmap/ic_launcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +21,7 @@
 
 
     <EditText
-        android:id="@+id/fullname_signup"
+        android:id="@+id/fullname_profile"
         android:hint="@string/fullname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
         android:inputType="text"
         />
     <EditText
-        android:id="@+id/email_signup"
+        android:id="@+id/email_profile"
         android:hint="@string/email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
         android:layout_gravity="center_horizontal"
         android:inputType="textEmailAddress"/>
     <EditText
-        android:id="@+id/password_signup"
+        android:id="@+id/password_profile"
         android:hint="@string/password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
         android:layout_gravity="center_horizontal"
         android:inputType="textPassword"/>
     <EditText
-        android:id="@+id/phoneno_signup"
+        android:id="@+id/phoneno_profile"
         android:hint="@string/phonenumber"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
         android:inputType="phone"/>
 
     <Button
-        android:id="@+id/update_signup"
+        android:id="@+id/update_profile"
         android:text="@string/update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
